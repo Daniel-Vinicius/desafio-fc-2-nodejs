@@ -16,14 +16,16 @@ const faker = require('faker');
 
 app.get('/', (req, res) => {
   const connection = mysql.createConnection(config)
+  const sqlForCreateTable = "CREATE TABLE IF NOT EXISTS people (id int NOT NULL AUTO_INCREMENT, name varchar(255), PRIMARY KEY(id))"
+  connection.query(sqlForCreateTable)
 
   const randomName = faker.name.firstName()
  
   const sqlForInsert = `INSERT INTO people(name) values('${randomName}')`
   connection.query(sqlForInsert)
   
-  const sqlForSearch = `SELECT * FROM people`;
-  connection.query(sqlForSearch, (err, results, fields) => {
+  const sqlForSelect = `SELECT * FROM people`;
+  connection.query(sqlForSelect, (err, results, fields) => {
     if (err) throw err;
     let people = [];
 
