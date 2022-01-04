@@ -37,6 +37,8 @@ services:
       - "8080:80"
     networks:
       - node-network
+    depends_on: 
+      - nodeserver
 
 networks:
   node-network:
